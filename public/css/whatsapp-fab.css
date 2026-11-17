@@ -1,0 +1,114 @@
+
+.floating-whatsapp{
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: var(--accent-color);
+    color: #ffffff;
+    padding: 14px 22px;
+    border-radius: 50px;
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    z-index: 9999;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.floating-whatsapp i{
+    font-size: 24px;
+}
+
+.floating-whatsapp:hover{
+    background: #25D366;
+    color: #ffffff;
+    transform: translateY(-3px);
+}
+
+.floating-whatsapp:active{
+    background: #25D366;
+}
+
+.mobile-bottom-nav{
+    display: none !important;
+}
+
+@media only screen and (max-width: 767px){
+    body{
+        padding-bottom: 76px;
+    }
+
+    .main-footer{
+        display: none;
+    }
+
+    .mobile-bottom-nav{
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        z-index: 10000;
+        display: grid !important;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        min-height: 70px;
+        padding: 7px 4px 5px;
+        box-sizing: border-box;
+        background: var(--accent-color);
+        border-top: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow: 0 -4px 14px rgba(25, 35, 36, 0.2);
+    }
+
+    .mobile-bottom-nav-item{
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 5px;
+        color: var(--white-color);
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 1.1;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .mobile-bottom-nav-item i{
+        min-height: 27px;
+        font-size: 25px;
+        font-weight: 900;
+    }
+
+    .mobile-more-icon{
+        display: flex;
+        min-height: 27px;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .mobile-more-icon span{
+        display: block;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
+    }
+
+    .mobile-bottom-nav-item:hover,
+    .mobile-bottom-nav-item:focus{
+        color: var(--accent-color);
+        text-decoration: none;
+    }
+
+    .floating-whatsapp{
+        display: none;
+    }
+
+    .floating-whatsapp i{
+        font-size: 20px;
+    }
+}

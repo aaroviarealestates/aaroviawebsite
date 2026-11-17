@@ -1,0 +1,66 @@
+export const fallbackBlogPosts = [
+  {
+    id: "fallback-1",
+    slug: "best-areas-in-bangalore-for-real-estate-investment-in-2026",
+    title: "Best Areas in Bangalore for Real Estate Investment in 2026",
+    excerpt: "Explore Bangalore locations with strong infrastructure, connectivity, rental demand, and long-term property growth potential.",
+    coverImage: "/images/post-1.webp",
+    published: true,
+    publishedAt: new Date("2026-01-01"),
+    content: `<p>Bangalore continues to be one of India's strongest real estate markets, supported by technology corridors, infrastructure upgrades, and growing residential demand.</p><h2>Locations worth watching</h2><p>Whitefield, North Bangalore, Sarjapur Road, and the city's established employment corridors remain important areas for buyers and long-term investors.</p><h2>What to evaluate before investing</h2><p>Compare connectivity, planned infrastructure, developer history, legal documentation, rental demand, and the total cost of ownership before making a decision.</p><p>AAROVIA helps buyers review property opportunities and plan informed site visits across Bangalore.</p>`,
+  },
+  {
+    id: "fallback-2",
+    slug: "why-villa-plots-are-becoming-the-top-choice-for-investors",
+    title: "Why Villa Plots Are Becoming the Top Choice for Investors",
+    excerpt: "Understand why villa plots offer flexibility, ownership value, and strong long-term potential for Bangalore investors.",
+    coverImage: "/images/post-2.webp",
+    published: true,
+    publishedAt: new Date("2026-01-02"),
+    content: `<p>Villa plots are attracting buyers who want land ownership, design flexibility, and the option to build a home that fits their lifestyle.</p><h2>Why demand is growing</h2><p>Plotted communities combine independent ownership with planned roads, utilities, security, and shared amenities.</p><h2>What investors should check</h2><p>Review title documents, approvals, infrastructure delivery, connectivity, developer track record, and future development plans before booking.</p>`,
+  },
+  {
+    id: "fallback-3",
+    slug: "complete-guide-to-buying-farm-lands-near-bangalore",
+    title: "Complete Guide to Buying Farm Lands Near Bangalore",
+    excerpt: "A practical guide to evaluating location, documentation, access, water, and long-term value when buying farm land.",
+    coverImage: "/images/post-3.webp",
+    published: true,
+    publishedAt: new Date("2026-01-03"),
+    content: `<p>Farm land can support lifestyle goals and long-term investment, but buyers must complete careful legal and practical due diligence.</p><h2>Start with documentation</h2><p>Verify ownership, land classification, survey records, conversion status, access rights, and applicable local restrictions.</p><h2>Evaluate the land itself</h2><p>Inspect road access, water availability, soil, power, nearby infrastructure, and the area's future growth prospects.</p>`,
+  },
+  {
+    id: "fallback-4",
+    slug: "important-legal-checks-before-buying-any-property",
+    title: "Important Legal Checks Before Buying Any Property",
+    excerpt: "Use this legal checklist to reduce risk before purchasing an apartment, villa, plot, or farm land.",
+    coverImage: "/images/post-4.webp",
+    published: true,
+    publishedAt: new Date("2026-01-04"),
+    content: `<p>Good property decisions start with clear documentation. Never rely only on brochures, verbal promises, or an attractive location.</p><h2>Core checks</h2><p>Review title, encumbrance records, approvals, sanctioned plans, tax records, agreements, and the seller's authority to transfer the property.</p><h2>Get independent advice</h2><p>A qualified property lawyer can identify risks and explain the documents before you pay a substantial advance.</p>`,
+  },
+  {
+    id: "fallback-5",
+    slug: "apartment-vs-plot-investment-which-gives-better-returns",
+    title: "Apartment vs Plot Investment: Which Gives Better Returns?",
+    excerpt: "Compare apartments and plots by income potential, maintenance, liquidity, appreciation, and lifestyle value.",
+    coverImage: "/images/post-5.webp",
+    published: true,
+    publishedAt: new Date("2026-01-05"),
+    content: `<p>There is no single answer for every buyer. The right choice depends on your investment horizon, cash flow needs, risk comfort, and end use.</p><h2>Apartments</h2><p>Apartments can offer immediate use, rental income, amenities, and easier occupancy in established locations.</p><h2>Plots</h2><p>Plots offer flexibility and may benefit from land appreciation, but require patience, development planning, and careful title verification.</p>`,
+  },
+  {
+    id: "fallback-6",
+    slug: "future-growth-corridors-driving-bangalore-real-estate",
+    title: "Future Growth Corridors Driving Bangalore Real Estate",
+    excerpt: "Explore the infrastructure, employment, and connectivity trends shaping Bangalore's next real estate growth corridors.",
+    coverImage: "/images/post-6.webp",
+    published: true,
+    publishedAt: new Date("2026-01-06"),
+    content: `<p>Bangalore's growth is increasingly shaped by transport upgrades, new employment clusters, airport connectivity, and expanding social infrastructure.</p><h2>Look beyond today's price</h2><p>Investors should assess travel time, planned roads and transit, schools, healthcare, employment access, and the pace of local development.</p><h2>Plan for the long term</h2><p>Strong fundamentals matter more than short-term speculation. Compare multiple corridors and choose a property with clear documentation and practical access.</p>`,
+  },
+];
+
+export function getFallbackBlogPost(slug: string) {
+  return fallbackBlogPosts.find((post) => post.slug === slug) ?? null;
+}

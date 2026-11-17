@@ -1,0 +1,10 @@
+node_modules/
+.next/
+.env*
+!.env.example
+out/
+*.log
+*.tsbuildinfo
+_fragments/
+scripts/
+public/uploads/
