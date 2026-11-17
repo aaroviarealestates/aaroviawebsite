@@ -14,7 +14,9 @@ const getBlogPost = cache(async (slug: string) =>
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getBlogPost(params.slug);
-  if (!post) return { title: "Post not found | Aarovia Group" };
+  if (!post || !post.published || ("deletedAt" in post && post.deletedAt)) {
+    return { title: "Post not found | Aarovia Group", robots: { index: false, follow: false } };
+  }
   const seoTitle = "seoTitle" in post && typeof post.seoTitle === "string" ? post.seoTitle : "";
   const seoDescription = "seoDescription" in post && typeof post.seoDescription === "string" ? post.seoDescription : "";
   const imageAlt = "coverImageAlt" in post && typeof post.coverImageAlt === "string" && post.coverImageAlt
