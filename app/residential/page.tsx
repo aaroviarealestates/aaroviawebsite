@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Residential Properties | Luxury Apartments & Villas in Bangalore',
-  description: 'Explore premium residential properties by AAROVIA Group in Bangalore including luxury apartments, gated communities, premium villas, villa plots, smart homes, and high-return residential investment opportunities in prime locations.',
-  alternates: { canonical: "/residential" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Residential Properties | Luxury Apartments & Villas in Bangalore",
+  description: "Explore premium residential properties by AAROVIA Group in Bangalore including luxury apartments, gated communities, premium villas, villa plots, smart homes, and high-return residential investment opportunities in prime locations.",
+  path: "/residential",
+});
 
 export default function Page() {
   return (

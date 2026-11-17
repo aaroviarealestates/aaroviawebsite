@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Help Center | Real Estate Support, Property Assistance & Customer Care Bangalore',
-  description: 'Get expert support from Aarovia Group for luxury apartments, villas, villa plots, commercial properties, property bookings, investment guidance, legal assistance, site visits, customer care, and real estate services in Bangalore.',
-  alternates: { canonical: "/help" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Help Center | Real Estate Support, Property Assistance & Customer Care Bangalore",
+  description: "Get expert support from Aarovia Group for luxury apartments, villas, villa plots, commercial properties, property bookings, investment guidance, legal assistance, site visits, customer care, and real estate services in Bangalore.",
+  path: "/help",
+});
 
 export default function Page() {
   return (

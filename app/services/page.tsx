@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Group Services | Luxury Real Estate Services & Property Solutions in Bangalore',
-  description: 'Explore premium real estate services by Aarovia Group in Bangalore including luxury apartments, villas, villa plots, farm lands, gated communities, commercial properties, property investment consultation, project management, legal assistance, and property advisory solutions.',
-  alternates: { canonical: "/services" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Group Services | Luxury Real Estate Services & Property Solutions in Bangalore",
+  description: "Explore premium real estate services by Aarovia Group in Bangalore including luxury apartments, villas, villa plots, farm lands, gated communities, commercial properties, property investment consultation, project management, legal assistance, and property advisory solutions.",
+  path: "/services",
+});
 
 export default function Page() {
   return (

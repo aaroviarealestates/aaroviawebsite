@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Terms & Conditions | Real Estate Services, Property Booking & Website Usage Policy',
-  description: 'Read Aarovia Group Terms & Conditions for luxury apartments, villas, villa plots, commercial properties, property bookings, investment consultations, website usage, customer responsibilities, legal terms, and real estate services in Bangalore.',
-  alternates: { canonical: "/terms-conditions" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Terms & Conditions | Real Estate Services, Property Booking & Website Usage Policy",
+  description: "Read Aarovia Group Terms & Conditions for luxury apartments, villas, villa plots, commercial properties, property bookings, investment consultations, website usage, customer responsibilities, legal terms, and real estate services in Bangalore.",
+  path: "/terms-conditions",
+});
 
 export default function Page() {
   return (

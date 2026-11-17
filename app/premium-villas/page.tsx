@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Premium Villas | Luxury Villas & Gated Villa Communities in Bangalore',
-  description: 'Explore Aarovia Premium Villas in Bangalore featuring luxury villas, gated villa communities, modern architecture, premium amenities, smart homes, landscaped surroundings, and high-value real estate investment opportunities in prime Bangalore locations.',
-  alternates: { canonical: "/premium-villas" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Premium Villas | Luxury Villas & Gated Villa Communities in Bangalore",
+  description: "Explore Aarovia Premium Villas in Bangalore featuring luxury villas, gated villa communities, modern architecture, premium amenities, smart homes, landscaped surroundings, and high-value real estate investment opportunities in prime Bangalore locations.",
+  path: "/premium-villas",
+});
 
 export default function Page() {
   return (

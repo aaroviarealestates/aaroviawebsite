@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Villa Plots | Premium Villa Plots & Gated Communities in Bangalore',
-  description: 'Explore Aarovia Villa Plots in Bangalore featuring premium villa plots, gated plotted developments, luxury residential communities, secure infrastructure, landscaped surroundings, modern amenities, and high-growth real estate investment opportunities in prime Bangalore locations.',
-  alternates: { canonical: "/villa-plots" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Villa Plots | Premium Villa Plots & Gated Communities in Bangalore",
+  description: "Explore Aarovia Villa Plots in Bangalore featuring premium villa plots, gated plotted developments, luxury residential communities, secure infrastructure, landscaped surroundings, modern amenities, and high-growth real estate investment opportunities in prime Bangalore locations.",
+  path: "/villa-plots",
+});
 
 export default function Page() {
   return (

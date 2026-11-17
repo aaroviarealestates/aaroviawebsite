@@ -23,6 +23,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     description: property.summary || property.description,
     alternates: { canonical: `/properties/${property.slug}` },
     openGraph: { title: property.title, description: property.summary, images: [property.coverImage] },
+    twitter: {
+      card: "summary_large_image",
+      title: `${property.title} | Aarovia Group`,
+      description: property.summary || property.description,
+      images: [property.coverImage],
+    },
   };
 }
 

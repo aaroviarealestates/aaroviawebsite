@@ -17,14 +17,10 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       type: "website",
       siteName: "Aarovia Group",
-      title: settings.defaultSeoTitle,
-      description,
       images: [{ url: settings.defaultOgImage, alt: settings.logoAlt }],
     },
     twitter: {
       card: "summary_large_image",
-      title: settings.defaultSeoTitle,
-      description,
       images: [settings.defaultOgImage],
     },
     robots: {

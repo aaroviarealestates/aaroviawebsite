@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Privacy Policy | Secure Real Estate Data & Customer Privacy Protection',
-  description: 'Read Aarovia Group Privacy Policy to understand how we collect, use, store, and protect customer information for luxury apartments, villas, villa plots, commercial properties, investment consultations, enquiries, bookings, and real estate services in Bangalore.',
-  alternates: { canonical: "/privacy-policy" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Privacy Policy | Secure Real Estate Data & Customer Privacy Protection",
+  description: "Read Aarovia Group Privacy Policy to understand how we collect, use, store, and protect customer information for luxury apartments, villas, villa plots, commercial properties, investment consultations, enquiries, bookings, and real estate services in Bangalore.",
+  path: "/privacy-policy",
+});
 
 export default function Page() {
   return (

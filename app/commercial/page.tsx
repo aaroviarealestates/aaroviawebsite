@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Commercial Properties | Premium Commercial Spaces & Business Hubs in Bangalore',
-  description: 'Explore Aarovia Commercial Properties in Bangalore featuring premium office spaces, retail shops, commercial complexes, business hubs, IT parks, showroom spaces, investment-ready commercial real estate, and high-growth business property opportunities in prime Bangalore locations.',
-  alternates: { canonical: "/commercial" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Commercial Properties | Premium Commercial Spaces & Business Hubs in Bangalore",
+  description: "Explore Aarovia Commercial Properties in Bangalore featuring premium office spaces, retail shops, commercial complexes, business hubs, IT parks, showroom spaces, investment-ready commercial real estate, and high-growth business property opportunities in prime Bangalore locations.",
+  path: "/commercial",
+});
 
 export default function Page() {
   return (

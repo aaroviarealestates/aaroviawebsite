@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Group | Premium Farm Lands in Bangalore | Agricultural & Investment Properties',
-  description: 'Explore premium farm lands in Bangalore with Aarovia Group. Discover gated farm plots, agricultural lands, weekend retreat properties, eco-living investments, and high-growth farm land opportunities near Bangalore’s emerging investment corridors.',
-  alternates: { canonical: "/farm-lands" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Group | Premium Farm Lands in Bangalore | Agricultural & Investment Properties",
+  description: "Explore premium farm lands in Bangalore with Aarovia Group. Discover gated farm plots, agricultural lands, weekend retreat properties, eco-living investments, and high-growth farm land opportunities near Bangalore’s emerging investment corridors.",
+  path: "/farm-lands",
+});
 
 export default function Page() {
   return (

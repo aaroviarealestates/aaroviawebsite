@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
 import ContactForm from "@/components/ContactForm";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Contact Aarovia Group | Premium Real Estate Company in Bangalore",
   description: "Get in touch with Aarovia Group for luxury apartments, villas, villa plots, and real estate investment opportunities in Bangalore.",
-  alternates: { canonical: "/contact" },
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

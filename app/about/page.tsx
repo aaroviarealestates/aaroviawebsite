@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
 import { getNamedProjects } from "@/lib/featured-projects-data";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'About Aarovia Group | Premium Real Estate Company in Bangalore',
-  description: 'Learn about Aarovia Group, a trusted premium real estate company in Bangalore specializing in luxury apartments, villas, villa plots, gated communities, farm lands, commercial properties, and high-growth real estate investment opportunities across Bangalore.',
-  alternates: { canonical: "/about" },
-};
+export const metadata = createPageMetadata({
+  title: "About Aarovia Group | Premium Real Estate Company in Bangalore",
+  description: "Learn about Aarovia Group, a trusted premium real estate company in Bangalore specializing in luxury apartments, villas, villa plots, gated communities, farm lands, commercial properties, and high-growth real estate investment opportunities across Bangalore.",
+  path: "/about",
+});
 
 export default async function Page() {
   const namedProjects = await getNamedProjects();

@@ -14,6 +14,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     description: page.seoDescription,
     alternates: { canonical: page.canonicalPath || `/pages/${page.slug}` },
     openGraph: { title: page.seoTitle || page.title, description: page.seoDescription, images: page.ogImage ? [page.ogImage] : undefined },
+    twitter: {
+      card: "summary_large_image",
+      title: page.seoTitle || page.title,
+      description: page.seoDescription,
+      images: page.ogImage ? [page.ogImage] : undefined,
+    },
   };
 }
 

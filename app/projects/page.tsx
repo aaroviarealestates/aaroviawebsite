@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Projects | Aarovia Group",
   description: "Explore Aarovia Group premium real estate projects in Bangalore including luxury apartments, villas, villa plots, farm lands, commercial spaces, and investment properties.",
-  alternates: { canonical: "/projects" },
-};
+  path: "/projects",
+});
 
 export default async function ProjectsPage() {
   return (

@@ -13,7 +13,17 @@ export async function generateMetadata(): Promise<Metadata> {
     title: settings.defaultSeoTitle,
     description: settings.defaultSeoDescription,
     alternates: { canonical: "https://www.aaroviagroup.com" },
-    openGraph: { title: settings.defaultSeoTitle, description: settings.defaultSeoDescription, images: [settings.defaultOgImage] },
+    openGraph: {
+      title: settings.defaultSeoTitle,
+      description: settings.defaultSeoDescription,
+      images: [{ url: settings.defaultOgImage, alt: settings.logoAlt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: settings.defaultSeoTitle,
+      description: settings.defaultSeoDescription,
+      images: [settings.defaultOgImage],
+    },
   };
 }
 

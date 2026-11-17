@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
 import { prisma } from "@/lib/prisma";
 import { fallbackBlogPosts } from "@/lib/blog-fallback";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: "Aarovia Group Blog | Real Estate News, Property Investment & Market Insights",
   description: "Stay updated with the latest Bangalore real estate trends, investment opportunities, and expert guidance from AAROVIA.",
-  alternates: { canonical: "/blog" },
-};
+  path: "/blog",
+});
 
 export const revalidate = 60;
 

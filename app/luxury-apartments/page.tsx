@@ -1,13 +1,13 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroPoster from "@/components/HeroPoster";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia Luxury Apartments | Premium Apartments & Gated Communities in Bangalore',
-  description: 'Explore Aarovia Luxury Apartments in Bangalore featuring premium apartments, gated communities, modern smart homes, world-class amenities, luxury living spaces, sustainable architecture, and high-growth real estate investment opportunities in prime Bangalore locations.',
-  alternates: { canonical: "/luxury-apartments" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia Luxury Apartments | Premium Apartments & Gated Communities in Bangalore",
+  description: "Explore Aarovia Luxury Apartments in Bangalore featuring premium apartments, gated communities, modern smart homes, world-class amenities, luxury living spaces, sustainable architecture, and high-growth real estate investment opportunities in prime Bangalore locations.",
+  path: "/luxury-apartments",
+});
 
 export default function Page() {
   return (

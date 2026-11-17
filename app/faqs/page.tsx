@@ -1,12 +1,12 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: 'Aarovia FAQs | Real Estate Questions, Property Buying & Investment Guide Bangalore',
-  description: 'Explore Aarovia Group FAQs for answers about luxury apartments, premium villas, villa plots, commercial properties, property investment, legal verification, site visits, booking process, home loans, gated communities, and real estate services in Bangalore.',
-  alternates: { canonical: "/faqs" },
-};
+export const metadata = createPageMetadata({
+  title: "Aarovia FAQs | Real Estate Questions, Property Buying & Investment Guide Bangalore",
+  description: "Explore Aarovia Group FAQs for answers about luxury apartments, premium villas, villa plots, commercial properties, property investment, legal verification, site visits, booking process, home loans, gated communities, and real estate services in Bangalore.",
+  path: "/faqs",
+});
 
 export default function Page() {
   return (

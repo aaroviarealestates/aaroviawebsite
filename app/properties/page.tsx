@@ -1,14 +1,16 @@
-import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { prisma } from "@/lib/prisma";
 import { propertiesEnabled } from "@/lib/features";
 import { notFound } from "next/navigation";
+import { createPageMetadata } from "@/lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Properties | Aarovia Group",
-  description: "Browse published properties and projects from Aarovia Group.",
-  alternates: { canonical: "/properties" },
+export const metadata = {
+  ...createPageMetadata({
+    title: "Properties | Aarovia Group",
+    description: "Browse published properties and projects from Aarovia Group.",
+    path: "/properties",
+  }),
   robots: propertiesEnabled ? undefined : { index: false, follow: false },
 };
 export const dynamic = "force-dynamic";
