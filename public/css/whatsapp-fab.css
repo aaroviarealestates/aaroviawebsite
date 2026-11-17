@@ -99,9 +99,16 @@
     }
 
     .mobile-bottom-nav-item:hover,
-    .mobile-bottom-nav-item:focus{
-        color: var(--accent-color);
+    .mobile-bottom-nav-item:focus,
+    .mobile-bottom-nav-item:active{
+        color: var(--white-color);
         text-decoration: none;
+    }
+
+    .mobile-bottom-nav-item:focus-visible{
+        outline: 2px solid var(--white-color);
+        outline-offset: -3px;
+        border-radius: 6px;
     }
 
     .floating-whatsapp{
