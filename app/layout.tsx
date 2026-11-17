@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import ScriptsLoader from "@/components/ScriptsLoader";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import { getSiteSettings } from "@/lib/site-content";
+
+const GOOGLE_TAG_ID = "G-47GK3TNHB9";
 
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
@@ -88,6 +91,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <head>
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GOOGLE_TAG_ID}');
+          `}
+        </Script>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
