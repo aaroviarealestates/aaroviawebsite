@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-const CRM_API = process.env.CRM_LEADS_API_URL || "https://aarovia-api.vercel.app/api/public/leads";
+const CRM_API = process.env.CRM_LEADS_API_URL || "https://aarovia-api.vercel.app/api/public/leads/aarovia-website";
 
 export async function POST(req: NextRequest) {
   try {
