@@ -26,16 +26,21 @@ const staticPages = [
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [posts, managedPages] = await Promise.all([
+  const [posts, allPosts, managedPages] = await Promise.all([
     prisma.blogPost.findMany({
-      where: { published: true },
+      where: { published: true, deletedAt: null },
       select: { slug: true, updatedAt: true },
     }).catch((error: unknown) => {
       console.error("Unable to load published blog posts for the sitemap.", error);
       return [];
     }),
+    prisma.blogPost.findMany({ select: { slug: true } }).catch((error: unknown) => {
+      console.error("Unable to load blog slugs for the sitemap.", error);
+      return [];
+    }),
     listManagedPages(),
   ]);
+  const databaseSlugs = new Set(allPosts.map((post) => post.slug));
   const blogEntries = posts.length
     ? posts.map((post) => ({
         url: new URL(`/blog/${post.slug}`, siteUrl).toString(),
@@ -43,7 +48,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "monthly" as const,
         priority: 0.6,
       }))
-    : fallbackBlogPosts.map((post) => ({
+    : fallbackBlogPosts.filter((post) => !databaseSlugs.has(post.slug)).map((post) => ({
         url: new URL(`/blog/${post.slug}`, siteUrl).toString(),
         lastModified: post.publishedAt,
         changeFrequency: "monthly" as const,

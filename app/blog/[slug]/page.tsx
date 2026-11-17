@@ -17,6 +17,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!post) return { title: "Post not found | Aarovia Group" };
   const seoTitle = "seoTitle" in post && typeof post.seoTitle === "string" ? post.seoTitle : "";
   const seoDescription = "seoDescription" in post && typeof post.seoDescription === "string" ? post.seoDescription : "";
+  const imageAlt = "coverImageAlt" in post && typeof post.coverImageAlt === "string" && post.coverImageAlt
+    ? post.coverImageAlt
+    : post.title;
   const title = seoTitle || `${post.title} | Aarovia Group Blog`;
   const description = seoDescription || post.excerpt;
   return {
@@ -29,7 +32,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description,
       url: `/blog/${post.slug}`,
       publishedTime: new Date(post.publishedAt).toISOString(),
-      images: [{ url: post.coverImage, alt: post.title }],
+      images: [{ url: post.coverImage, alt: imageAlt }],
     },
     twitter: { card: "summary_large_image", title, description, images: [post.coverImage] },
   };
@@ -37,18 +40,22 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = await getBlogPost(params.slug);
-  if (!post || !post.published) return notFound();
+  if (!post || !post.published || ("deletedAt" in post && post.deletedAt)) return notFound();
 
   const siteUrl = "https://www.aaroviagroup.com";
   const articleUrl = new URL(`/blog/${post.slug}`, siteUrl).toString();
   const updatedAt = "updatedAt" in post ? post.updatedAt : null;
+  const imageAlt = "coverImageAlt" in post && typeof post.coverImageAlt === "string" && post.coverImageAlt
+    ? post.coverImageAlt
+    : post.title;
+  const postType = "postType" in post && typeof post.postType === "string" ? post.postType : "ARTICLE";
   const dateModified =
     updatedAt instanceof Date || typeof updatedAt === "string" || typeof updatedAt === "number"
       ? new Date(updatedAt).toISOString()
       : new Date(post.publishedAt).toISOString();
   const articleStructuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": postType === "NEWS" ? "NewsArticle" : "Article",
     headline: post.title,
     description: post.excerpt,
     image: [new URL(post.coverImage, siteUrl).toString()],
@@ -119,7 +126,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
             <div className="col-lg-8">
               <div className="project-single-content">
-                <div className="project-single-image"><figure className="image-anime reveal"><img alt={post.title} src={post.coverImage}  loading="lazy" decoding="async"/></figure></div>
+                <div className="project-single-image"><figure className="image-anime reveal"><img alt={imageAlt} src={post.coverImage}  loading="lazy" decoding="async"/></figure></div>
                 <div className="project-entry">
                   <div className="project-info">
                     <h2 className="text-anime-style-2">{post.title}</h2>

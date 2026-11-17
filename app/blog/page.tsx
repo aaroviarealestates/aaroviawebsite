@@ -13,11 +13,15 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 export default async function BlogPage() {
-  const posts = await prisma.blogPost.findMany({
-    where: { published: true },
-    orderBy: { publishedAt: "desc" },
-  }).catch(() => []);
-  const visiblePosts = posts.length ? posts : fallbackBlogPosts;
+  const [posts, allPosts] = await Promise.all([
+    prisma.blogPost.findMany({
+      where: { published: true, deletedAt: null },
+      orderBy: { publishedAt: "desc" },
+    }).catch(() => []),
+    prisma.blogPost.findMany({ select: { slug: true } }).catch(() => []),
+  ]);
+  const databaseSlugs = new Set(allPosts.map((post) => post.slug));
+  const visiblePosts = posts.length ? posts : fallbackBlogPosts.filter((post) => !databaseSlugs.has(post.slug));
 
   return (
     <>
@@ -95,7 +99,12 @@ export default async function BlogPage() {
                   <div className="post-featured-image">
                     <figure>
                       <a href={`/blog/${post.slug}`} className="image-anime" data-cursor-text="View">
-                        <img src={post.coverImage} alt={post.title}  loading="lazy" decoding="async"/>
+                        <img
+                          src={post.coverImage}
+                          alt={"coverImageAlt" in post && typeof post.coverImageAlt === "string" && post.coverImageAlt ? post.coverImageAlt : post.title}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       </a>
                     </figure>
                   </div>

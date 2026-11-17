@@ -16,7 +16,7 @@ live site.
 - An admin panel at `/admin` with login (email + password, roles) and full
   create/edit/delete for:
   - Featured Projects and Properties in separate admin areas
-  - Blog Posts
+  - Blog Posts, with selectable post types and an internal 100% SEO checklist required for publishing
   - Leads (view + change status + delete)
   - Testimonials
 - An admin page editor for custom pages and homepage hero/about content, plus

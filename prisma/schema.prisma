@@ -75,23 +75,27 @@ model Property {
 }
 
 model BlogPost {
-  id             String   @id @default(cuid())
+  id             String    @id @default(cuid())
   title          String
-  slug           String   @unique
+  slug           String    @unique
   excerpt        String
   content        String
   coverImage     String
-  author         String   @default("Aarovia Group")
-  category       String   @default("Real Estate")
-  tags           String[] @default([])
-  published      Boolean  @default(true)
-  featured       Boolean  @default(false)
-  allowComments  Boolean  @default(true)
-  publishedAt    DateTime @default(now())
-  seoTitle       String   @default("")
-  seoDescription String   @default("")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  coverImageAlt  String    @default("")
+  author         String    @default("Aarovia Group")
+  category       String    @default("Real Estate")
+  postType       String    @default("ARTICLE")
+  tags           String[]  @default([])
+  published      Boolean   @default(true)
+  featured       Boolean   @default(false)
+  allowComments  Boolean   @default(true)
+  publishedAt    DateTime  @default(now())
+  seoTitle       String    @default("")
+  seoDescription String    @default("")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  focusKeyword   String    @default("")
+  deletedAt      DateTime?
 }
 
 model Testimonial {
