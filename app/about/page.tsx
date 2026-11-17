@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { getNamedProjects } from "@/lib/featured-projects-data";
 
 export const metadata: Metadata = {
   title: 'About Aarovia Group | Premium Real Estate Company in Bangalore',
@@ -8,7 +9,9 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
-export default function Page() {
+export default async function Page() {
+  const namedProjects = await getNamedProjects();
+
   return (
     <>
       <Header />
@@ -575,21 +578,14 @@ export default function Page() {
 
       <div className="section-title dark-section">
       <h3 className="wow fadeInUp">how we work</h3>
-      <h2 className="text-anime-style-2" data-cursor="-opaque">
-                              Simple, transparent &amp; trusted steps for{" "}
-                              <span>buying your ideal property</span>
-      </h2>
+      <h2 className="text-anime-style-2" data-cursor="-opaque">From property search to <span>final ownership</span></h2>
       </div>
 
       </div>
       <div className="col-lg-6">
 
       <div className="section-title-content dark-section">
-      <p className="wow fadeInUp" data-wow-delay="0.2s">
-                              At Aarovia Group, we guide buyers and investors through every 
-                              stage of the property journey — from property discovery and site visits 
-                              to legal verification, booking, and final registration.
-                          </p>
+      <p className="wow fadeInUp" data-wow-delay="0.2s">Our streamlined process ensures a smooth real estate journey, helping you find, evaluate, and secure the right property in Bangalore with confidence.</p>
       </div>
 
       </div>
@@ -604,12 +600,8 @@ export default function Page() {
       <img alt="" src="/images/icon-how-we-work-1.svg" loading="lazy" decoding="async"/>
       </div>
       <div className="how-we-work-content">
-      <h3>01. property consultation</h3>
-      <p>
-                                      We begin by understanding your property requirements, budget, 
-                                      preferred locations, and investment goals to suggest the best 
-                                      apartments, plots, villas, or farm lands.
-                                  </p>
+      <h3>01. requirement analysis</h3>
+      <p>We understand your budget, preferred location, and property goals to shortlist the best options.</p>
       </div>
       </div>
 
@@ -620,10 +612,7 @@ export default function Page() {
       </div>
       <div className="how-we-work-content">
       <h3>02. property shortlisting</h3>
-      <p>
-                                      Our team carefully selects verified properties in Bangalore’s 
-                                      prime locations and arranges detailed site visits based on your preferences.
-                                  </p>
+      <p>We present verified apartments, villas, and investment options that match your exact needs.</p>
       </div>
       </div>
 
@@ -633,11 +622,8 @@ export default function Page() {
       <img alt="" src="/images/icon-how-we-work-3.svg" loading="lazy" decoding="async"/>
       </div>
       <div className="how-we-work-content">
-      <h3>03. legal &amp; investment guidance</h3>
-      <p>
-                                      We assist with legal verification, project details, pricing analysis, 
-                                      and investment advice to help you make a secure and profitable decision.
-                                  </p>
+      <h3>03. site visits &amp; evaluation</h3>
+      <p>We arrange site visits and provide expert insights to help you make an informed decision.</p>
       </div>
       </div>
 
@@ -647,11 +633,8 @@ export default function Page() {
       <img alt="" src="/images/icon-how-we-work-4.svg" loading="lazy" decoding="async"/>
       </div>
       <div className="how-we-work-content">
-      <h3>04. booking &amp; ownership support</h3>
-      <p>
-                                      From booking assistance and documentation to registration and final 
-                                      handover, AAROVIA ensures a smooth and hassle-free property buying experience.
-                                  </p>
+      <h3>04. booking &amp; documentation</h3>
+      <p>We assist with negotiations, legal checks, and documentation to ensure a secure purchase.</p>
       </div>
       </div>
 
@@ -661,47 +644,13 @@ export default function Page() {
       <div className="how-work-company-slider">
       <div className="swiper">
       <div className="swiper-wrapper">
-
-      <div className="swiper-slide">
-      <div className="company-logo">
-    <img alt="" src="/images/company-logo-1.svg" loading="lazy" decoding="async"/>
-      </div>
-      </div>
-
-
-      <div className="swiper-slide">
-      <div className="company-logo">
-      <img alt="" src="/images/company-logo-2.svg" loading="lazy" decoding="async"/>
-      </div>
-      </div>
-
-
-      <div className="swiper-slide">
-      <div className="company-logo">
-      <img alt="" src="/images/company-logo-3.svg" loading="lazy" decoding="async"/>
-      </div>
-      </div>
-
-
-      <div className="swiper-slide">
-      <div className="company-logo">
-      <img alt="" src="/images/company-logo-4.svg" loading="lazy" decoding="async"/>
-      </div>
-      </div>
-
-
-      <div className="swiper-slide">
-      <div className="company-logo">
-      <img alt="" src="/images/company-logo-5.svg" loading="lazy" decoding="async"/>
-      </div>
-      </div>
-
-
-      <div className="swiper-slide">
-      <div className="company-logo">
-    <img alt="" src="/images/company-logo-2.svg" loading="lazy" decoding="async"/>
-      </div>
-      </div>
+      {namedProjects.filter((project) => project.logo).map((project) => (
+        <div className="swiper-slide" key={project.name}>
+          <div className="company-logo">
+            <img src={project.logo} alt={`${project.name} logo`} loading="lazy" decoding="async"/>
+          </div>
+        </div>
+      ))}
 
       </div>
       </div>

@@ -1,11 +1,13 @@
 "use server";
 
+import { requireAdminSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { defaultSiteSettings, saveSiteSettings } from "@/lib/site-content";
 import { uploadMediaFile } from "@/lib/media-upload";
 
 export async function updateSiteSettings(formData: FormData) {
+  await requireAdminSession();
   const settings = Object.fromEntries(
     Object.keys(defaultSiteSettings).map((key) => [key, String(formData.get(key) || "")]),
   ) as typeof defaultSiteSettings;

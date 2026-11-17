@@ -1,5 +1,6 @@
 "use server";
 
+import { requireAdminSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -33,6 +34,7 @@ function readForm(formData: FormData) {
 }
 
 export async function createPost(formData: FormData) {
+  await requireAdminSession();
   const data = readForm(formData);
   data.coverImage = await uploadMediaFile(formData.get("coverImageFile")) || data.coverImage;
   if (!data.coverImage) throw new Error("A cover image URL or uploaded cover image is required.");
@@ -45,6 +47,7 @@ export async function createPost(formData: FormData) {
 }
 
 export async function updatePost(id: string, formData: FormData) {
+  await requireAdminSession();
   const data = readForm(formData);
   data.coverImage = await uploadMediaFile(formData.get("coverImageFile")) || data.coverImage;
   if (!data.coverImage) throw new Error("A cover image URL or uploaded cover image is required.");
@@ -58,6 +61,7 @@ export async function updatePost(id: string, formData: FormData) {
 }
 
 export async function deletePost(formData: FormData) {
+  await requireAdminSession();
   const id = String(formData.get("id"));
   const existing = await prisma.blogPost.findUnique({ where: { id }, select: { slug: true } });
   await prisma.blogPost.delete({ where: { id } });
@@ -67,6 +71,7 @@ export async function deletePost(formData: FormData) {
 }
 
 export async function importFallbackPost(formData: FormData) {
+  await requireAdminSession();
   const slug = String(formData.get("slug") || "");
   const post = getFallbackBlogPost(slug);
   if (!post) redirect("/admin/blog?error=missing");

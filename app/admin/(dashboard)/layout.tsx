@@ -1,4 +1,4 @@
-import { getSession, clearSession } from "@/lib/auth";
+import { clearSession, requireAdminSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
 async function logout() {
@@ -9,7 +9,8 @@ async function logout() {
 
 const NAV = [
   { href: "/admin", label: "Dashboard" },
-  { href: "/admin/properties", label: "Projects & Properties" },
+  { href: "/admin/projects", label: "Featured Projects" },
+  { href: "/admin/properties", label: "Properties" },
   { href: "/admin/blog", label: "Blog Posts" },
   { href: "/admin/testimonials", label: "Testimonials" },
   { href: "/admin/pages", label: "Web Pages" },
@@ -17,7 +18,7 @@ const NAV = [
 ];
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
-  const session = await getSession();
+  const session = await requireAdminSession();
 
   return (
     <div className="admin-shell" style={{ display: "flex", minHeight: "100vh", fontFamily: "sans-serif" }}>

@@ -1,5 +1,6 @@
 "use server";
 
+import { requireAdminSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { saveManagedPage, type ManagedPage, type PageSection } from "@/lib/page-content";
@@ -42,6 +43,7 @@ function readSections(formData: FormData): PageSection[] {
 }
 
 export async function savePage(existingSlug: string | undefined, formData: FormData) {
+  await requireAdminSession();
   const title = String(formData.get("title") || "").trim();
   const slug = slugify(String(formData.get("slug") || title));
   if (!title || !slug) redirect("/admin/pages/new?error=1");
@@ -70,6 +72,7 @@ export async function savePage(existingSlug: string | undefined, formData: FormD
 }
 
 export async function deletePage(formData: FormData) {
+  await requireAdminSession();
   const slug = slugify(String(formData.get("slug") || ""));
   if (!slug) return;
   const { prisma } = await import("@/lib/prisma");

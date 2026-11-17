@@ -8,3 +8,6 @@ out/
 _fragments/
 scripts/
 public/uploads/
+
+.vercel
+.env*

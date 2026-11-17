@@ -11,7 +11,9 @@ export default async function EditPropertyPage({ params }: { params: { id: strin
 
   return (
     <div>
-      <h1 style={{ marginBottom: "20px" }}>Edit Property</h1>
+      <h1 style={{ marginBottom: "20px" }}>
+        Edit {property.recordType === "NAMED_PROJECT" ? "Named Project" : "Category Page / Property"}
+      </h1>
       <PropertyForm property={property} action={action} />
     </div>
   );

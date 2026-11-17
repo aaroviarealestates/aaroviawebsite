@@ -3,7 +3,7 @@ import FeaturedProjects from "@/components/FeaturedProjects";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import IntroVideo from "@/components/IntroVideo";
-import { featuredProjects } from "@/lib/featured-projects";
+import { getNamedProjects } from "@/lib/featured-projects-data";
 import { getSiteSettings } from "@/lib/site-content";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function HomePage() {
-  const settings = await getSiteSettings();
+  const [settings, namedProjects] = await Promise.all([getSiteSettings(), getNamedProjects()]);
   return (
     <>
       <Header />
@@ -614,7 +614,7 @@ export default async function HomePage() {
       <div className="how-work-company-slider">
       <div className="swiper">
       <div className="swiper-wrapper">
-      {featuredProjects.map((project) => (
+      {namedProjects.filter((project) => project.logo).map((project) => (
         <div className="swiper-slide" key={project.name}>
           <div className="company-logo">
             <img src={project.logo} alt={`${project.name} logo`}  loading="lazy" decoding="async"/>

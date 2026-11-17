@@ -30,6 +30,11 @@ enum PropertyCategory {
   COMMERCIAL
 }
 
+enum PropertyRecordType {
+  CATEGORY_PAGE
+  NAMED_PROJECT
+}
+
 model AdminUser {
   id           String   @id @default(cuid())
   name         String
@@ -41,24 +46,32 @@ model AdminUser {
 }
 
 model Property {
-  id          String           @id @default(cuid())
-  title       String
-  slug        String           @unique
-  category    PropertyCategory
-  location    String
-  priceLabel  String? // e.g. "₹95 Lakh onwards" - free text, keeps pricing flexible
-  bedrooms    Int?
-  bathrooms   Int?
-  areaSqft    Int?
-  summary     String
-  description String
-  coverImage  String
-  gallery     String[]         @default([])
-  amenities   String[]         @default([])
-  featured    Boolean          @default(false)
-  published   Boolean          @default(true)
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id              String             @id @default(cuid())
+  title           String
+  slug            String             @unique
+  recordType      PropertyRecordType @default(CATEGORY_PAGE)
+  websiteUrl      String?
+  category        PropertyCategory
+  displayCategory String?
+  projectFilter   String?
+  logo            String?
+  sortOrder       Int                @default(0)
+  location        String
+  priceLabel      String? // e.g. "₹95 Lakh onwards" - free text, keeps pricing flexible
+  bedrooms        Int?
+  bathrooms       Int?
+  areaSqft        Int?
+  summary         String
+  description     String
+  coverImage      String
+  gallery         String[]           @default([])
+  amenities       String[]           @default([])
+  featured        Boolean            @default(false)
+  published       Boolean            @default(true)
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+
+  @@index([recordType, published, featured, sortOrder])
 }
 
 model BlogPost {

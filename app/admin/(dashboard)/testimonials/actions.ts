@@ -1,5 +1,6 @@
 "use server";
 
+import { requireAdminSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -17,6 +18,7 @@ function readForm(formData: FormData) {
 }
 
 export async function createTestimonial(formData: FormData) {
+  await requireAdminSession();
   const data = readForm(formData);
   data.avatar = await uploadMediaFile(formData.get("avatarFile")) || data.avatar;
   await prisma.testimonial.create({ data });
@@ -25,6 +27,7 @@ export async function createTestimonial(formData: FormData) {
 }
 
 export async function updateTestimonial(id: string, formData: FormData) {
+  await requireAdminSession();
   const data = readForm(formData);
   data.avatar = await uploadMediaFile(formData.get("avatarFile")) || data.avatar;
   await prisma.testimonial.update({ where: { id }, data });
@@ -33,6 +36,7 @@ export async function updateTestimonial(id: string, formData: FormData) {
 }
 
 export async function deleteTestimonial(formData: FormData) {
+  await requireAdminSession();
   const id = String(formData.get("id"));
   await prisma.testimonial.delete({ where: { id } });
   revalidatePath("/admin/testimonials");

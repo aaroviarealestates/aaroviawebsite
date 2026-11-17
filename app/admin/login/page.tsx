@@ -1,6 +1,10 @@
+import { redirect } from "next/navigation";
+import { getSession } from "@/lib/auth";
 import { login } from "./actions";
 
-export default function AdminLoginPage({ searchParams }: { searchParams: { error?: string } }) {
+export default async function AdminLoginPage({ searchParams }: { searchParams: { error?: string } }) {
+  const session = await getSession();
+  if (session) redirect("/admin");
   return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0f172a", fontFamily: "sans-serif" }}>
       <form className="admin-login-form" action={login} style={{ background: "#fff", padding: "40px", borderRadius: "12px", width: "360px" }}>

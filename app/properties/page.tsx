@@ -16,7 +16,7 @@ export default async function PropertiesPage() {
   if (!propertiesEnabled) notFound();
 
   const properties = await prisma.property.findMany({
-    where: { published: true },
+    where: { recordType: "CATEGORY_PAGE", published: true },
     orderBy: [{ featured: "desc" }, { updatedAt: "desc" }],
   });
 

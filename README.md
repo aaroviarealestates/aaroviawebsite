@@ -15,14 +15,14 @@ live site.
 - A dynamic **Blog** (list + individual post pages) pulled from the database.
 - An admin panel at `/admin` with login (email + password, roles) and full
   create/edit/delete for:
-  - Properties
+  - Featured Projects and Properties in separate admin areas
   - Blog Posts
   - Leads (view + change status + delete)
   - Testimonials
 - An admin page editor for custom pages and homepage hero/about content, plus
   image uploads for page sections, properties, blog covers, testimonials, and
-  site branding. Published properties appear on `/properties` and featured
-  properties also appear on the home and projects pages.
+  site branding. Named projects power Featured Projects; category pages remain
+  distinct and are not listed as named projects.
 
 ## 1. Install dependencies
 
@@ -57,9 +57,13 @@ npm run dev
 Visit `http://localhost:3000` for the site, `http://localhost:3000/admin/login`
 for the admin panel (use the email/password from `.env`).
 
-Uploaded media is saved in `public/uploads`. This is suitable for local
-development and persistent servers; use persistent/object storage before
-deploying uploads on an ephemeral serverless filesystem.
+Project cover and gallery uploads use Vercel Blob so they persist across
+deployments. Create a Blob store in the Vercel project and connect it to the
+project for Production and Preview; this provides the `BLOB_READ_WRITE_TOKEN`
+environment variable needed for uploads. For local uploads, add the token to
+your local `.env`. Other admin media uploads still use `public/uploads` and are
+intended for local development or persistent servers, not ephemeral serverless
+deployments.
 
 ## 4. Deploy to Vercel
 
@@ -108,6 +112,13 @@ apex domain).
 Since the admin panel manages individual properties (with price, bedrooms,
 amenities, etc.), two new pages were added that didn't exist on the original
 site, styled to match the existing theme:
+
+Named projects such as Premia, Lake Estate, and Veda Vilasa are managed in
+**Admin → Featured Projects**, separately from category pages such as Luxury
+Apartments in **Admin → Properties**. Published projects marked Featured feed
+both the homepage Featured Projects section and the public `/projects` page.
+Their names, links, images, logos, categories, locations, and display order
+also feed the project-logo carousel.
 
 - `/properties` — a filterable grid of every published property, using the
   theme's existing "service card" styling.

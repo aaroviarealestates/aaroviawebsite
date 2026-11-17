@@ -1,16 +1,18 @@
 import { prisma } from "@/lib/prisma";
 
 export default async function AdminDashboard() {
-  const [properties, posts, leads, testimonials, newLeads] = await Promise.all([
-    prisma.property.count(),
+  const [projects, properties, posts, leads, testimonials, newLeads] = await Promise.all([
+    prisma.property.count({ where: { recordType: "NAMED_PROJECT" } }),
+    prisma.property.count({ where: { recordType: "CATEGORY_PAGE" } }),
     prisma.blogPost.count(),
     prisma.lead.count(),
     prisma.testimonial.count(),
     prisma.lead.count({ where: { status: "NEW" } }),
-  ]).catch(() => [0, 0, 0, 0, 0] as const);
+  ]).catch(() => [0, 0, 0, 0, 0, 0] as const);
 
   const cards = [
-    { label: "Projects & Properties", value: properties, href: "/admin/properties" },
+    { label: "Featured Projects", value: projects, href: "/admin/projects" },
+    { label: "Properties", value: properties, href: "/admin/properties" },
     { label: "Blog Posts", value: posts, href: "/admin/blog" },
     { label: "Leads (total)", value: leads, href: "/admin/leads" },
     { label: "New Leads", value: newLeads, href: "/admin/leads" },

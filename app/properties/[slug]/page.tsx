@@ -8,7 +8,7 @@ import { propertiesEnabled } from "@/lib/features";
 export const dynamic = "force-dynamic";
 
 async function findPublishedProperty(slug: string) {
-  return prisma.property.findFirst({ where: { slug, published: true } });
+  return prisma.property.findFirst({ where: { slug, recordType: "CATEGORY_PAGE", published: true } });
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -66,7 +66,14 @@ export default async function PropertyDetailsPage({ params }: { params: { slug: 
               </div>
             </div>
           )}
-          <p style={{ marginTop: "32px" }}><a className="btn-default" href="/contact">Enquire about this property</a></p>
+          <p style={{ marginTop: "32px", display: "flex", flexWrap: "wrap", gap: "12px" }}>
+            <a className="btn-default" href="/contact">Enquire about this property</a>
+            {property.websiteUrl && (
+              <a className="btn-default" href={property.websiteUrl} target="_blank" rel="noopener noreferrer">
+                Visit project website
+              </a>
+            )}
+          </p>
         </div>
       </main>
       <Footer />

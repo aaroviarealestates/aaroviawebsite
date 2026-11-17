@@ -63,7 +63,7 @@ export default function FeaturedProjectGrid({ projects }: { projects: FeaturedPr
 
         <div className="row">
           {visibleProjects.map((project, index) => (
-            <div className={`col-md-6 project-item-box ${project.filter}`} key={project.name}>
+            <div className={`col-md-6 project-item-box ${project.filter}`} key={`${project.name}-${project.href}`}>
               <article className="project-item wow fadeInUp" data-wow-delay={`${0.2 * index}s`}>
                 <div className="project-featured-image">
                   <figure className="image-anime">
