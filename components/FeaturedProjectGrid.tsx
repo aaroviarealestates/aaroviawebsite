@@ -91,7 +91,7 @@ export default function FeaturedProjectGrid({ projects }: { projects: FeaturedPr
                       {project.name}
                     </a>
                   </h2>
-                  <p>{project.location}</p>
+                  <p className="project-location">{project.location}</p>
                 </div>
               </article>
             </div>
