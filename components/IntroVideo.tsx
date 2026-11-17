@@ -6,25 +6,23 @@ export default function IntroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
+  const [playWhenReady, setPlayWhenReady] = useState(false);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const section = videoRef.current?.closest(".intro-video");
-    if (!section) return;
+    if (!shouldLoadVideo || !playWhenReady) return;
+    const video = videoRef.current;
+    if (!video) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShouldLoadVideo(true);
-          observer.disconnect();
-        }
+    video.load();
+    void video.play().then(
+      () => setPlayWhenReady(false),
+      () => {
+        setPlayWhenReady(false);
+        setError("The video could not be played. Press play to try again.");
       },
-      { rootMargin: "200px 0px" },
     );
-
-    observer.observe(section);
-    return () => observer.disconnect();
-  }, []);
+  }, [shouldLoadVideo, playWhenReady]);
 
   const togglePlayback = async () => {
     const video = videoRef.current;
@@ -34,6 +32,12 @@ export default function IntroVideo() {
     }
 
     setError("");
+    if (!shouldLoadVideo) {
+      setShouldLoadVideo(true);
+      setPlayWhenReady(true);
+      return;
+    }
+
     if (video.paused) {
       try {
         await video.play();
@@ -74,11 +78,10 @@ export default function IntroVideo() {
                   ref={videoRef}
                   className="intro-video-player"
                   aria-label="Aarovia Group introduction video"
-                  autoPlay={shouldLoadVideo}
                   loop
                   muted
                   playsInline
-                  preload={shouldLoadVideo ? "metadata" : "none"}
+                  preload="none"
                   poster="/images/intro-video-bg.webp"
                   onPlay={() => setIsPlaying(true)}
                   onPause={() => setIsPlaying(false)}

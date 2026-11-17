@@ -1,6 +1,16 @@
 import { getSiteSettings } from "@/lib/site-content";
 import { propertiesEnabled } from "@/lib/features";
 
+const navigationLinks = [
+  { href: "/", label: "HOME" },
+  { href: "/about", label: "ABOUT US" },
+  { href: "/services", label: "SERVICES" },
+  { href: "/projects", label: "PROJECTS" },
+  ...(propertiesEnabled ? [{ href: "/properties", label: "PROPERTIES" }] : []),
+  { href: "/blog", label: "BLOG" },
+  { href: "/contact", label: "CONTACT US" },
+];
+
 export default async function Header() {
   const settings = await getSiteSettings();
 
@@ -15,14 +25,12 @@ export default async function Header() {
 
             <div className="collapse navbar-collapse main-menu">
               <div className="nav-menu-wrapper">
-                <ul className="navbar-nav mr-auto" id="menu">
-                  <li className="nav-item"><a className="nav-link" href="/">HOME</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/about">ABOUT US</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/services">SERVICES</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/projects">PROJECTS</a></li>
-                  {propertiesEnabled && <li className="nav-item"><a className="nav-link" href="/properties">PROPERTIES</a></li>}
-                  <li className="nav-item"><a className="nav-link" href="/blog">BLOG</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/contact">CONTACT US</a></li>
+                <ul className="navbar-nav mr-auto">
+                  {navigationLinks.map((item) => (
+                    <li className="nav-item" key={item.href}>
+                      <a className="nav-link" href={item.href}>{item.label}</a>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
@@ -37,10 +45,24 @@ export default async function Header() {
               </div>
             </div>
 
-            <div className="navbar-toggle"></div>
+            <div className="mobile-nav">
+              <details>
+                <summary aria-label="Toggle site navigation">
+                  <span />
+                  <span />
+                  <span />
+                </summary>
+                <nav aria-label="Mobile navigation">
+                  <ul>
+                    {navigationLinks.map((item) => (
+                      <li key={item.href}><a href={item.href}>{item.label}</a></li>
+                    ))}
+                  </ul>
+                </nav>
+              </details>
+            </div>
           </div>
         </nav>
-        <div className="responsive-menu"></div>
       </div>
     </header>
   );

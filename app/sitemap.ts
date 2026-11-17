@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { fallbackBlogPosts } from "@/lib/blog-fallback";
+import { propertiesEnabled } from "@/lib/features";
 import { listManagedPages } from "@/lib/page-content";
 import { prisma } from "@/lib/prisma";
 
@@ -23,10 +24,11 @@ const staticPages = [
   "/service-single",
   "/privacy-policy",
   "/terms-conditions",
+  ...(propertiesEnabled ? ["/properties"] : []),
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [posts, allPosts, managedPages] = await Promise.all([
+  const [posts, allPosts, managedPages, properties] = await Promise.all([
     prisma.blogPost.findMany({
       where: { published: true, deletedAt: null },
       select: { slug: true, updatedAt: true },
@@ -39,21 +41,31 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       return [];
     }),
     listManagedPages(),
+    propertiesEnabled
+      ? prisma.property.findMany({
+          where: { recordType: "CATEGORY_PAGE", published: true },
+          select: { slug: true, updatedAt: true },
+        }).catch((error: unknown) => {
+          console.error("Unable to load published properties for the sitemap.", error);
+          return [];
+        })
+      : Promise.resolve([]),
   ]);
   const databaseSlugs = new Set(allPosts.map((post) => post.slug));
-  const blogEntries = posts.length
-    ? posts.map((post) => ({
+  const blogEntries = [
+    ...posts.map((post) => ({
         url: new URL(`/blog/${post.slug}`, siteUrl).toString(),
         lastModified: post.updatedAt,
         changeFrequency: "monthly" as const,
         priority: 0.6,
-      }))
-    : fallbackBlogPosts.filter((post) => !databaseSlugs.has(post.slug)).map((post) => ({
+    })),
+    ...fallbackBlogPosts.filter((post) => !databaseSlugs.has(post.slug)).map((post) => ({
         url: new URL(`/blog/${post.slug}`, siteUrl).toString(),
         lastModified: post.publishedAt,
         changeFrequency: "monthly" as const,
         priority: 0.6,
-      }));
+    })),
+  ];
 
   return [
     ...staticPages.map((path) => ({
@@ -65,6 +77,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: new URL(`/pages/${page.slug}`, siteUrl).toString(),
       changeFrequency: "monthly" as const,
       priority: 0.5,
+    })),
+    ...properties.map((property) => ({
+      url: new URL(`/properties/${property.slug}`, siteUrl).toString(),
+      lastModified: property.updatedAt,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
     })),
     ...blogEntries,
   ];

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HeroPoster from "@/components/HeroPoster";
 
 export const metadata: Metadata = {
   title: 'Aarovia Group Services | Luxury Real Estate Services & Property Solutions in Bangalore',
@@ -22,17 +23,7 @@ export default function Page() {
 
       <div className="hero hero-video">
 
-      <div className="hero-bg-video">
-
-
-      <video autoPlay id="myVideo" loop muted playsInline poster="/images/page-header-bg.webp">
-      <source src="/videos/inspaire-video-3.mp4" type="video/mp4" />
-      </video>
-
-
-
-
-      </div>
+      <HeroPoster />
 
       <div className="container">
       <div className="row align-items-center">

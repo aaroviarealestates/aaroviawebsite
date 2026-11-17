@@ -6,7 +6,9 @@ import { getManagedPage } from "@/lib/page-content";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const page = await getManagedPage(params.slug);
-  if (!page) return { title: "Page not found | Aarovia Group" };
+  if (!page || !page.published) {
+    return { title: "Page not found | Aarovia Group", robots: { index: false, follow: false } };
+  }
   return {
     title: page.seoTitle || page.title,
     description: page.seoDescription,

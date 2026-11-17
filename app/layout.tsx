@@ -13,12 +13,20 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL("https://www.aaroviagroup.com"),
     title: { default: settings.defaultSeoTitle, template: "%s" },
     description,
+    alternates: { canonical: "/" },
     openGraph: {
       type: "website",
       siteName: "Aarovia Group",
+      title: settings.defaultSeoTitle,
+      description,
       images: [{ url: settings.defaultOgImage, alt: settings.logoAlt }],
     },
-    twitter: { card: "summary_large_image", images: [settings.defaultOgImage] },
+    twitter: {
+      card: "summary_large_image",
+      title: settings.defaultSeoTitle,
+      description,
+      images: [settings.defaultOgImage],
+    },
     robots: {
       index: true,
       follow: true,
@@ -93,9 +101,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <head>
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_TAG_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-tag" strategy="afterInteractive">
+        <Script id="google-tag" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){window.dataLayer.push(arguments);}

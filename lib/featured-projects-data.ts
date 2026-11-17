@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { randomUUID } from "node:crypto";
 import type { PropertyCategory } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
@@ -79,21 +80,23 @@ function toFeaturedProject(project: {
   };
 }
 
-export async function getNamedProjects(): Promise<FeaturedProject[]> {
+export const getNamedProjects = cache(async function getNamedProjects(): Promise<FeaturedProject[]> {
   try {
-    const initialization = await prisma.siteContent.findUnique({
-      where: { key: initializationKey },
-      select: { id: true },
-    });
+    const [initialization, projects] = await Promise.all([
+      prisma.siteContent.findUnique({
+        where: { key: initializationKey },
+        select: { id: true },
+      }),
+      prisma.property.findMany({
+        where: { recordType: "NAMED_PROJECT", published: true, featured: true },
+        orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
+      }),
+    ]);
     if (!initialization) return featuredProjects;
 
-    const projects = await prisma.property.findMany({
-      where: { recordType: "NAMED_PROJECT", published: true, featured: true },
-      orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-    });
     return projects.map(toFeaturedProject);
   } catch (error) {
     console.error("Could not load admin-managed named projects.", error);
     return featuredProjects;
   }
-}
+});

@@ -3,8 +3,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: 'Service Details | Aarovia Group',
-  description: 'Aarovia Group - premium real estate in Bangalore.',
+  title: "Residential Property Buying Support in Bangalore | Aarovia Group",
+  description: "Get practical help comparing homes, shortlisting properties, arranging site visits, reviewing documents, and completing a residential property purchase in Bangalore.",
   alternates: { canonical: "/service-single" },
 };
 

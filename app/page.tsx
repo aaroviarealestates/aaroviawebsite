@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HeroPoster from "@/components/HeroPoster";
 import IntroVideo from "@/components/IntroVideo";
 import { getNamedProjects } from "@/lib/featured-projects-data";
 import { getSiteSettings } from "@/lib/site-content";
@@ -30,16 +31,7 @@ export default async function HomePage() {
 
 
       <div className="hero hero-video">
-
-      <div className="hero-bg-video">
-
-
-      <video autoPlay id="myVideo" loop muted playsInline preload="metadata" poster={settings.homeHeroPoster}><source src="/videos/inspaire-video.mp4" type="video/mp4"/></video>
-
-
-
-
-      </div>
+      <HeroPoster src={settings.homeHeroPoster} />
 
       <div className="container">
       <div className="row align-items-center">

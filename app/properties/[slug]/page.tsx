@@ -15,7 +15,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   if (!propertiesEnabled) notFound();
 
   const property = await findPublishedProperty(params.slug);
-  if (!property) return { title: "Property not found | Aarovia Group" };
+  if (!property) {
+    return { title: "Property not found | Aarovia Group", robots: { index: false, follow: false } };
+  }
   return {
     title: `${property.title} | Aarovia Group`,
     description: property.summary || property.description,

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import FeaturedProjects from "@/components/FeaturedProjects";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HeroPoster from "@/components/HeroPoster";
 
 export const metadata: Metadata = {
   title: "Projects | Aarovia Group",
@@ -15,11 +16,7 @@ export default async function ProjectsPage() {
       <Header />
 
       <div className="hero hero-video">
-        <div className="hero-bg-video">
-          <video autoPlay id="myVideo" loop muted playsInline poster="/images/page-header-bg.webp">
-            <source src="/videos/inspaire-video-4.mp4" type="video/mp4" />
-          </video>
-        </div>
+        <HeroPoster />
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-10">

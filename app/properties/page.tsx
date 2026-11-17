@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: "Properties | Aarovia Group",
   description: "Browse published properties and projects from Aarovia Group.",
   alternates: { canonical: "/properties" },
+  robots: propertiesEnabled ? undefined : { index: false, follow: false },
 };
 export const dynamic = "force-dynamic";
 

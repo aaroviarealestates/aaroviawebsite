@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HeroPoster from "@/components/HeroPoster";
 import { prisma } from "@/lib/prisma";
 import { getFallbackBlogPost } from "@/lib/blog-fallback";
 import { cache } from "react";
 
 export const revalidate = 60;
 
-const getBlogPost = cache(async (slug: string) =>
-  await prisma.blogPost.findUnique({ where: { slug } }).catch(() => null) ?? getFallbackBlogPost(slug)
-);
+const getBlogPost = cache(async (slug: string) => {
+  const post = await prisma.blogPost.findUnique({ where: { slug } }).catch(() => null);
+  if (post) return post.deletedAt ? null : post;
+  return getFallbackBlogPost(slug);
+});
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getBlogPost(params.slug);
@@ -77,11 +80,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       <Header />
 
       <div className="hero hero-video">
-        <div className="hero-bg-video">
-          <video autoPlay id="myVideo" loop muted playsInline poster="/images/page-header-bg.webp">
-            <source src="/videos/inspaire-video-5.mp4" type="video/mp4" />
-          </video>
-        </div>
+        <HeroPoster />
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-10">
