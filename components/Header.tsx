@@ -1,4 +1,5 @@
 import { getSiteSettings } from "@/lib/site-content";
+import { propertiesEnabled } from "@/lib/features";
 
 export default async function Header() {
   const settings = await getSiteSettings();
@@ -19,7 +20,7 @@ export default async function Header() {
                   <li className="nav-item"><a className="nav-link" href="/about">ABOUT US</a></li>
                   <li className="nav-item"><a className="nav-link" href="/services">SERVICES</a></li>
                   <li className="nav-item"><a className="nav-link" href="/projects">PROJECTS</a></li>
-                  <li className="nav-item"><a className="nav-link" href="/properties">PROPERTIES</a></li>
+                  {propertiesEnabled && <li className="nav-item"><a className="nav-link" href="/properties">PROPERTIES</a></li>}
                   <li className="nav-item"><a className="nav-link" href="/blog">BLOG</a></li>
                   <li className="nav-item"><a className="nav-link" href="/contact">CONTACT US</a></li>
                 </ul>

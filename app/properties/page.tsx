@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { prisma } from "@/lib/prisma";
+import { propertiesEnabled } from "@/lib/features";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Properties | Aarovia Group",
@@ -11,6 +13,8 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function PropertiesPage() {
+  if (!propertiesEnabled) notFound();
+
   const properties = await prisma.property.findMany({
     where: { published: true },
     orderBy: [{ featured: "desc" }, { updatedAt: "desc" }],

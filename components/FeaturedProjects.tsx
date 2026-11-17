@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { featuredProjects } from "@/lib/featured-projects";
+import { propertiesEnabled } from "@/lib/features";
 import FeaturedProjectGrid from "@/components/FeaturedProjectGrid";
 
 const categoryFilters: Record<string, string> = {
@@ -17,7 +18,7 @@ export default async function FeaturedProjects() {
     orderBy: { updatedAt: "desc" },
   }).catch(() => []);
 
-  const editableProjects = properties.map((property) => ({
+  const editableProjects = propertiesEnabled ? properties.map((property) => ({
     name: property.title,
     category: property.category.replace(/_/g, " ").toLowerCase(),
     location: property.location,
@@ -26,7 +27,7 @@ export default async function FeaturedProjects() {
     image: property.coverImage,
     filter: categoryFilters[property.category] || "residential",
     external: false,
-  }));
+  })) : [];
 
   return <FeaturedProjectGrid projects={[...editableProjects, ...featuredProjects]} />;
 }

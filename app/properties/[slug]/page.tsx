@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { prisma } from "@/lib/prisma";
+import { propertiesEnabled } from "@/lib/features";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,8 @@ async function findPublishedProperty(slug: string) {
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  if (!propertiesEnabled) notFound();
+
   const property = await findPublishedProperty(params.slug);
   if (!property) return { title: "Property not found | Aarovia Group" };
   return {
@@ -22,6 +25,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function PropertyDetailsPage({ params }: { params: { slug: string } }) {
+  if (!propertiesEnabled) notFound();
+
   const property = await findPublishedProperty(params.slug);
   if (!property) notFound();
 
