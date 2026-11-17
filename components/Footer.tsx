@@ -39,7 +39,7 @@ export default async function Footer() {
               <ul>
                 <li><a href="/about">about aarovia</a></li>
                 <li><a href="/services">our services</a></li>
-                <li><a href="/projects">featured properties</a></li>
+                <li><a href="/projects">featured projects</a></li>
                 <li><a href="/blog">real estate insights</a></li>
                 <li><a href="/contact">contact us</a></li>
               </ul>

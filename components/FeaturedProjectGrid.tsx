@@ -26,7 +26,7 @@ export default function FeaturedProjectGrid({ projects }: { projects: FeaturedPr
         <div className="row section-row align-items-center">
           <div className="col-lg-6">
             <div className="section-title">
-              <h3 className="wow fadeInUp">featured properties</h3>
+              <h3 className="wow fadeInUp">featured projects</h3>
               <h2 className="text-anime-style-2" data-cursor="-opaque" id="featured-projects-title">
                 Explore premium real estate opportunities in <span>Bangalore&apos;s fastest-growing locations</span>
               </h2>
