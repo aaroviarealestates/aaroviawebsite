@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-const CRM_API = process.env.CRM_LEADS_API_URL || "https://aarovia-api.vercel.app/api/leads/public";
-const CONSENT_TEXT = "By submitting this form, I consent to receive communications from Aarovia Group through WhatsApp, SMS, email, phone calls, and other channels, even if my number is registered on DND/NDNC.";
+const CRM_API = process.env.CRM_LEADS_API_URL || "https://aarovia-api.vercel.app/api/public/leads";
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,14 +24,9 @@ export async function POST(req: NextRequest) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name: name.trim(),
-        mobile: phone.trim(),
-        email: email.trim(),
-        remarks: typeof message === "string" ? message.trim() : "",
-        source: "WEBSITE",
-        formType: "contact",
-        consent: true,
-        consentText: CONSENT_TEXT,
+        fullName: name.trim(),
+        phoneNumber: phone.trim(),
+        emailAddress: email.trim(),
       }),
     });
 
